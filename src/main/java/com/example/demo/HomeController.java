@@ -2,19 +2,25 @@ package com.example.demo;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class HomeController {
-    @RequestMapping("/loadform")
-    public String loadFormPage(){
-        return "formtemplate";
+
+    @GetMapping("/employeeform")
+    public String loadFormPage(Model model){
+        model.addAttribute("employee", new Employee());
+        return "employeeform";
     }
-    @RequestMapping("/processform")
-    public String loadFormPage(@RequestParam("login") String login,
-                               Model model){
-        model.addAttribute("loginval", login);
-        return "confirm";
+
+    @PostMapping("/employeeform")
+    public String loadFormPage(@ModelAttribute Employee employee, Model model){
+        model.addAttribute("employee", employee);
+        return "confirmemployee";
+
     }
+
 }
+
